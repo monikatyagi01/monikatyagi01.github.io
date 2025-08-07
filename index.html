@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Temperature Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: #4e5e5b;
+      text-align: center;
+    }
+    .converter {
+      background: rgb(142, 118, 129);
+      padding: 30px;
+      border-radius: 10px;
+      display: inline-block;
+      box-shadow: 0 0 10px rgba(222, 208, 208, 0.2);
+    }
+    input, select, button {
+      margin: 10px;
+      padding: 10px;
+      font-size: 1em;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #a84e4e;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="converter">
+    <h2>Temperature Converter</h2>
+    <input type="number" id="temperatureInput" placeholder="Enter temperature">
+    
+    <select id="unitSelect">
+      <option value="C">Celsius (°C)</option>
+      <option value="F">Fahrenheit (°F)</option>
+      <option value="K">Kelvin (K)</option>
+    </select>
+    
+    <button onclick="convertTemperature()">Convert</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function convertTemperature() {
+      const input = parseFloat(document.getElementById("temperatureInput").value);
+      const unit = document.getElementById("unitSelect").value;
+      const resultDiv = document.getElementById("result");
+
+      if (isNaN(input)) {
+        resultDiv.innerHTML = "❌ Please enter a valid number.";
+        return;
+      }
+
+      let c, f, k;
+
+      if (unit === "C") {
+        c = input;
+        f = (input * 9/5) + 32;
+        k = input + 273.15;
+      } else if (unit === "F") {
+        c = (input - 32) * 5/9;
+        f = input;
+        k = c + 273.15;
+      } else if (unit === "K") {
+        k = input;
+        c = input - 273.15;
+        f = (c * 9/5) + 32;
+      }
+
+      resultDiv.innerHTML = `
+        <p>🌡 Celsius: ${c.toFixed(2)} °C</p>
+        <p>🌡 Fahrenheit: ${f.toFixed(2)} °F</p>
+        <p>🌡 Kelvin: ${k.toFixed(2)} K</p>
+      `;
+    }
+  </script>
+
+</body>
+</html>
